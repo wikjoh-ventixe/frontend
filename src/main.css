@@ -6,8 +6,8 @@
 
 :root {
   --font: "Inter", sans-serif;
-  --primary-100: #F2C6F9;
-  --primary-90: #F5B9FA;
+  --primary-100: #F26CF9;
+  --primary-90: #F589FA;
   --primary-50: #FCD3FE;
   --primary-40: #FCE2FE;
   --primary-30: #FDEDFE;
@@ -15,12 +15,12 @@
   --secondary-100: #37437D;
   --secondary-90: #5562A2;
   --secondary-70: #707DBF;
-  --secondary-60: #7D87DF;
-  --secondary-50: #B3DAF9;
-  --yellow-100: #FFC439;
-  --yellow-90: #FFFCC3;
+  --secondary-60: #ABB4DD;
+  --secondary-50: #D3DAF9;
+  --yellow-100: #FFCA39;
+  --yellow-90: #FFEFC3;
   --gray-10: #FFFFFF;
-  --gray-20: #FFF7F7;
+  --gray-20: #F7F7F7;
   --gray-30: #EDEDED;
   --gray-40: #E0E0E1;
   --gray-50: #C3C3C4;
@@ -29,11 +29,11 @@
   --gray-80: #636365;
   --gray-90: #434345;
   --gray-100: #1E1E20;
-  --cool-gray-10: #EEFFFF;
-  --cool-gray-20: #E4F5F5;
-  --cool-gray-30: #DDEDED;
-  --cool-gray-40: #CBDCDC;
-  --cool-gray-50: #B0D1DB;
+  --cool-gray-10: #EEEFFF;
+  --cool-gray-20: #E4E5F5;
+  --cool-gray-30: #DDDEED;
+  --cool-gray-40: #D1D2E0;
+  --cool-gray-50: #B0B1BD;
   --cool-gray-60: #8F8F99;
   --cool-gray-70: #72737A;
   --cool-gray-80: #56565C;
@@ -55,7 +55,8 @@
   --separator-text-color: var(--gray-60);
   --separator-background-color: var(--gray-10);
 
-  --link-color: var(--primary-100);
+  --link-color: var(--secondary-100);
+  --link-active-color: var(--primary-100);
   --link-hover-color: var(--primary-90);
 
   --card-background-color: var(--gray-10);

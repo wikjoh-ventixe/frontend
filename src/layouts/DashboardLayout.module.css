@@ -1,6 +1,7 @@
 .dashboardWrapper {
   display: grid;
-  gap: 1rem;
+  gap: .75rem;
+  padding: .75rem;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
   grid-template-areas: "nav" "main" "footer";
