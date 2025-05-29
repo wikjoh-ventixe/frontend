@@ -1,0 +1,14 @@
+.footer {
+  font-size: 12px;
+}
+
+.copyright {
+  font-weight: 600;
+  color: var(--text-muted-color);
+}
+
+.links {
+  color: var(--gray-50);
+  font-weight: 400;
+  margin-left: 1.5rem;
+}
