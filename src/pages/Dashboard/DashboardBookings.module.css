@@ -1,0 +1,4 @@
+.topStats {
+  display: flex;
+  gap: .75rem;
+}
