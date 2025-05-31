@@ -1,6 +1,8 @@
+import RegistrationForm from "../../features/customer-auth/RegistrationForm"
+
 const Register = () => {
   return (
-    <div>Register</div>
+    <RegistrationForm />
   )
 }
 export default Register

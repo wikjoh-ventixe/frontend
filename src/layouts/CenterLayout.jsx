@@ -5,7 +5,6 @@ const CenterLayout = () => {
   return (
     <div className={styles.centerWrapper}>
       <main>
-        Centerered Layout
         <Outlet />
       </main>
     </div>
