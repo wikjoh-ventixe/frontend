@@ -98,6 +98,16 @@
   --checkbox-checked-background-color: var(--primary-100);
   --checkbox-checked-border-color: var(--primary-100);
   --checkbox-checked-text-color: var(--gray-10);
+
+  --fw-thin: 100;
+  --fw-extralight: 200;
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+  --fw-black: 900;
 }
 
 html, body {
