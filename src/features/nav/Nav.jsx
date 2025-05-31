@@ -3,12 +3,17 @@ import styles from './Nav.module.css'
 import BookingIcon from '../../components/icons/BookingIcon';
 import DashboardIcon from '../../components/icons/DashboardIcon';
 import EventsIcon from '../../components/icons/EventsIcon';
+import UserIcon from '../../components/icons/AdminIcon';
+import CustomerIcon from '../../components/icons/CustomerIcon';
+import AdminIcon from '../../components/icons/AdminIcon';
 
 const Nav = () => {
   const navItems = [
     { name: 'Dashboard', path: '/dashboard/home', icon: DashboardIcon },
     { name: 'Bookings', path: '/dashboard/bookings', icon: BookingIcon },
-    { name: 'Events', path: '/dashboard/events', icon: EventsIcon }
+    { name: 'Events', path: '/dashboard/events', icon: EventsIcon },
+    { name: 'Customers', path: '/dashboard/customers', icon: CustomerIcon },
+    { name: 'Admins', path: '/dashboard/admins', icon: AdminIcon }
   ];
 
   return (
@@ -21,8 +26,8 @@ const Nav = () => {
 
       <ul className={styles.navLinks}>
         {navItems.map(item => (
-        <li>
-          <NavLink key={item.path} to={item.path}>
+        <li key={item.path}>
+          <NavLink to={item.path}>
             {({ isActive }) => (
               <>
                 <span className={styles.iconSpan}>{<item.icon isActive={isActive} />}</span>
