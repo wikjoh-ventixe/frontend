@@ -29,7 +29,7 @@ const LoginForm = () => {
 
   return (
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <header>
+        <header className={styles.formHeader}>
           <div className={styles.logo}>
             <div className={styles.logoImage}>
               <img src="/images/logo.svg" />

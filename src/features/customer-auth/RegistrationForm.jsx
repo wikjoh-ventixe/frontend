@@ -30,7 +30,7 @@ const RegistrationForm = () => {
   if (submitted) {
     return (
       <>
-        <header>
+        <header className={styles.formHeader}>
           <div className={styles.logo}>
             <div className={styles.logoImage}>
               <img src="/images/logo.svg" />
