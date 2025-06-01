@@ -1,6 +1,8 @@
+import AdminList from "../../features/dashboard/admins/AdminList";
+
 const DashboardAdmins = () => {
   return (
-    <div>DashboardAdmins page</div>
+    <AdminList />
   )
 }
 export default DashboardAdmins
