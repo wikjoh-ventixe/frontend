@@ -1,6 +1,8 @@
+import CustomerList from "../../features/dashboard/customers/CustomerList"
+
 const DashboardCustomers = () => {
   return (
-    <div>DashboardCustomers page</div>
+    <CustomerList />
   )
 }
 export default DashboardCustomers
