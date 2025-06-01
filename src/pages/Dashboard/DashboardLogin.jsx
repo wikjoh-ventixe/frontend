@@ -1,6 +1,8 @@
+import LoginForm from "../../features/dashboard/login/LoginForm"
+
 const DashboardLogin = () => {
   return (
-    <div>DashboardLogin Page</div>
+    <LoginForm />
   )
 }
 export default DashboardLogin

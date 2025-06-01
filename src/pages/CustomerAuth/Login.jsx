@@ -1,6 +1,8 @@
+import LoginForm from "../../features/customer-auth/LoginForm"
+
 const Login = () => {
   return (
-    <div>Login</div>
+    <LoginForm />
   )
 }
 export default Login

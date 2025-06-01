@@ -1,11 +1,10 @@
 import { useState } from 'react'
-import styles from './RegistrationForm.module.css'
+import styles from './LoginForm.module.css'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
-import Button from '../../components/button/Button'
-import { NavLink } from 'react-router-dom'
+import Button from '../../../components/button/Button'
 
-const RegistrationForm = () => {
+const LoginForm = () => {
   const [submitted, setSubmitted] = useState(false)
   const { register, handleSubmit, formState: { errors }, reset } = useForm()
 
@@ -15,7 +14,7 @@ const RegistrationForm = () => {
   }
 
   const onSubmit = async (data) => {
-    const res = await axios.post('RegisterApi', data, {
+    const res = await axios.post('DashboardLoginApi', data, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -25,29 +24,6 @@ const RegistrationForm = () => {
       setSubmitted(true)
       reset()
     }
-  }
-
-  if (submitted) {
-    return (
-      <>
-        <header>
-          <div className={styles.logo}>
-            <div className={styles.logoImage}>
-              <img src="/images/logo.svg" />
-            </div>
-            <h1>Ventixe</h1>
-          </div>
-
-          <h2>Register</h2>
-        </header>
-
-        <div className={styles.informationBox}>
-          <h2></h2>
-          <p>Please check your email to verify your account.</p>
-          <button className={styles.btnGreen} onClick={handleOk}>OK</button>
-        </div>
-      </>
-    )
   }
 
   return (
@@ -60,7 +36,7 @@ const RegistrationForm = () => {
             <h1>Ventixe</h1>
           </div>
 
-          <h2>Register</h2>
+          <h2>Dashboard</h2>
         </header>
 
         <div className={styles.formBody}>
@@ -76,17 +52,10 @@ const RegistrationForm = () => {
             {errors.password?.message && <span className={styles.inputError}>{String(errors.password?.message)}</span>}
           </div>
 
-          <div className={styles.formGroup}>
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input type="text" placeholder="Confirm Password" {...register('confirmPassword', { required: 'The confirm password field is required' })} />
-            {errors.confirmPassword?.message && <span className={styles.inputError}>{String(errors.confirmPassword?.message)}</span>}
-          </div>
         </div>
 
-        <Button label="Register" variant="primary" size="large" />
-
-        <p className={styles.existingAccount}>Already have an account? <NavLink to="/auth/login">Login</NavLink></p>
+        <Button label="Login" variant="primary" size="large" />
       </form>
   )
 }
-export default RegistrationForm
+export default LoginForm

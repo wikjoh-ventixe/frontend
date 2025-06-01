@@ -11,7 +11,7 @@ import Login from './pages/CustomerAuth/Login.jsx';
 import Register from './pages/CustomerAuth/Register.jsx';
 import DashboardBookings from './pages/Dashboard/DashboardBookings'
 import DashboardEvents from './pages/Dashboard/DashboardEvents'
-import DashboardLogin from './pages/Dashboard/DashboardLogin'
+import DashboardLogin from './features/dashboard/login/LoginForm'
 import Events from './pages/Main/Events'
 import DashboardCustomers from './pages/Dashboard/DashboardCustomers'
 import DashboardAdmins from './pages/Dashboard/DashboardAdmins'
