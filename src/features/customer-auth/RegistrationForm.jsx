@@ -51,8 +51,8 @@ const RegistrationForm = () => {
   }
 
   return (
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <header>
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
+        <header className={styles.formHeader}>
           <div className={styles.logo}>
             <div className={styles.logoImage}>
               <img src="/images/logo.svg" />
@@ -83,7 +83,9 @@ const RegistrationForm = () => {
           </div>
         </div>
 
-        <Button label="Register" variant="primary" size="large" />
+        <div className={styles.formButton}>
+          <Button label="Register" variant="primary" size="large" />
+        </div>
 
         <p className={styles.existingAccount}>Already have an account? <NavLink to="/auth/login">Login</NavLink></p>
       </form>

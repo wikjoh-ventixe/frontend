@@ -27,7 +27,7 @@ const LoginForm = () => {
   }
 
   return (
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
         <header className={styles.formHeader}>
           <div className={styles.logo}>
             <div className={styles.logoImage}>
@@ -54,7 +54,9 @@ const LoginForm = () => {
 
         </div>
 
-        <Button label="Login" variant="primary" size="large" />
+        <div className={styles.formButton}>
+          <Button label="Login" variant="primary" size="large" />
+        </div>
       </form>
   )
 }
