@@ -1,12 +1,18 @@
 .header {
   display: flex;
   justify-content: space-between;
+  height: 80px;
 
   h4 {
-    margin: 0 0 .5rem 0;
+    margin: 0;
     color: var(--headline-color);
     font-weight: 600;
+    font-size: 24px;
   }
+}
+
+.containerLeftDynamic {
+  text-transform: capitalize;
 }
 
 .containerRight {
