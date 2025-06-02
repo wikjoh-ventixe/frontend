@@ -21,10 +21,21 @@
     color: var(--link-color);
     font-size: 14px;
     font-weight: 600;
+    position: relative;
   }
 
   a[class="active"]{
     color: var(--link-active-color);
+
+    &::before {
+      content: '';
+      height: 30px;
+      width: 4px;
+      background-color: var(--primary-90);
+      position: absolute;
+      left: -24px;
+      border-radius: 0 12px 12px 0;
+    }
   }
 }
 
@@ -34,4 +45,8 @@
 
 .iconSpan {
   margin-right: 1rem;
+  
+  svg {
+    vertical-align: bottom;
+  }
 }
