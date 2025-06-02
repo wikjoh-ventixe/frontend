@@ -82,6 +82,7 @@
   letter-spacing: 0.1em;
   border-bottom: 1px solid var(--separator-border-color);
   position: relative;
+  text-wrap-mode: nowrap;
 }
 
 .th svg {
@@ -155,14 +156,7 @@
   font-size: 16px;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    gap: 16px;
-    align-items: stretch;
-  }
-
+@media (max-width: 1000px) {
   .controls {
     flex-direction: column;
     gap: 12px;

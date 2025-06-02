@@ -88,7 +88,6 @@ const RecentBookings = () => {
               <Search size={18} />
             </button>
           </div>
-          <Button label="This Week" variant="secondary" size="large" withDropdown />
         </div>
       </div>
 
