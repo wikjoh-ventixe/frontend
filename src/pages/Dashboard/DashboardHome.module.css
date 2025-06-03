@@ -3,4 +3,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, 250px);
   gap: .75rem;
+  
+  @media (width <= 940px) {
+    grid-template-columns: repeat(auto-fit, 100px);
+  }
 }

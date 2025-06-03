@@ -6,6 +6,13 @@
   width: 180px;
   display: flex;
   flex-direction: column;
+
+  @media (width <= 767px) {
+    flex-direction: row;
+    width: 100%;
+    height: 80px;
+    align-items: center;
+  }
 }
 
 .details {
@@ -13,6 +20,11 @@
   display: flex;
   flex-direction: column;
   align-items: start;
+
+  @media (width <= 767px) {
+    margin-top: 0;
+    margin-left: 1rem;
+  }
 }
 
 .stat {

@@ -4,8 +4,10 @@ import clsx from 'clsx';
 import styles from './RecentBookings.module.css';
 import { Search, ChevronDown } from 'lucide-react';
 import Button from '../../../../components/button/Button';
+import useMediaQuery from '../../../../hooks/useMediaQuery';
 
 const RecentBookings = () => {
+  const smallTable = useMediaQuery('(max-width: 900px)');
   // const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -91,7 +93,55 @@ const RecentBookings = () => {
         </div>
       </div>
 
-      <div className={styles.tableContainer}>
+      {smallTable
+      ? (<div className={styles.tableContainer}>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th className={styles.th}>
+                ID
+                <ChevronDown size={10} />
+              </th>
+              <th className={styles.th}>
+                Event
+                <ChevronDown size={10} />
+              </th>
+              <th className={styles.th}>
+                Amt
+                <ChevronDown size={10} />
+              </th>
+              <th className={styles.th}>
+                Status
+                <ChevronDown size={10} />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredBookings.map((booking) => (
+              <tr key={booking.bookingId} className={styles.row}>
+                <td className={styles.td}>{booking.bookingId}</td>
+                <td className={styles.td}>
+                  <div className={styles.eventInfo}>
+                    <div>{booking.event}</div>
+                    <div className={styles.category}>{booking.category}</div>
+                  </div>
+                </td>
+                <td className={styles.td}>${booking.amount}</td>
+                <td className={styles.td}>
+                  <span className={clsx(styles.status, {
+                    [styles.confirmed]: booking.status === 'Confirmed',
+                    [styles.pending]: booking.status === 'Pending',
+                    [styles.cancelled]: booking.status === 'Cancelled'
+                  })}>
+                    {booking.status}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>)
+      : (<div className={styles.tableContainer}>
         <table className={styles.table}>
           <thead>
             <tr>
@@ -157,7 +207,8 @@ const RecentBookings = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      </div>)
+      }
     </div>
   );
 };

@@ -3,12 +3,16 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, 180px);
   gap: .75rem;
+
+  @media (width <= 767px) {
+    grid-template-columns: 1fr;
+  }
 }
 
-.recentBookings {
+/* .recentBookings {
   display: none;
 
   @media (width >= 900px ) {
     display: block;
   }
-}
+} */
