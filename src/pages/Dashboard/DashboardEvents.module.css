@@ -3,4 +3,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, 275px);
   gap: .75rem;
+  justify-content: center;
+
+  @media (width >= 1400px) {
+    justify-content: start;
+  }
 }

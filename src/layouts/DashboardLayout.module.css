@@ -17,30 +17,36 @@
   }
 }
 
-nav {
-  grid-area: nav;
-  background-color: var(--nav-background-color);
-  border-radius: 1rem;
-  padding: 1.5rem;
-}
-
-header {
-  grid-area: header;
-  background-color: var(--header-background-color);
-  border-radius: 1rem;
-  padding: 1.5rem;
-}
-
-main {
-  grid-area: main;
-  background-color: var(--main-background-color);
-  border-radius: 1rem;
-  padding: 1.5rem;
-}
-
-footer {
-  grid-area: footer;
-  background-color: var(--footer-background-color);
-  border-radius: 1rem;
-  padding: 1.5rem;
+.dashboardWrapper {
+  nav {
+    grid-area: nav;
+    background-color: var(--nav-background-color);
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+  
+  header {
+    grid-area: header;
+    display: none;
+    background-color: var(--header-background-color);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    @media (width >= 768px) {
+      display: flex;
+    }
+  }
+  
+  main {
+    grid-area: main;
+    background-color: var(--main-background-color);
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+  
+  footer {
+    grid-area: footer;
+    background-color: var(--footer-background-color);
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
 }

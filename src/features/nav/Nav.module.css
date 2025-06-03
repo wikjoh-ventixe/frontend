@@ -1,8 +1,11 @@
 .logo {
   display: flex;
+  margin-bottom: 2rem;
+
   h2 {
-    margin-left: 1rem;
+    margin: 0 0 0 1rem;
     font-weight: 400;
+    display: none;
   }
 }
 
@@ -48,5 +51,74 @@
   
   svg {
     vertical-align: bottom;
+  }
+}
+
+.mobileNav {
+  padding-block: 1rem !important;
+}
+
+.mobileNavTop {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .title {
+    font-size: 16px;
+    font-weight: var(--fw-medium);
+    color: var(--secondary-110);
+    text-transform: capitalize;
+  }
+
+  svg {
+    vertical-align: bottom;
+  }
+}
+
+.burgerButton {
+  background-color: transparent;
+  border: none;
+}
+
+.navLinkContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.mobileNavLinks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin-bottom: 2rem;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--link-color);
+    font-size: 14px;
+    font-weight: 600;
+    position: relative;
+  }
+
+  a[class="active"]{
+    color: var(--link-active-color);
+  }
+}
+
+@media (width >= 768px) {
+  .itemName {
+  display: none;
+}
+}
+
+@media (width >= 1400px) {
+  .itemName, .logo h2 {
+    display: block;
   }
 }

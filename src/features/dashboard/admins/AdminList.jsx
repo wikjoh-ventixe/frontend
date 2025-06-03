@@ -3,8 +3,10 @@ import axios from 'axios';
 import clsx from 'clsx';
 import styles from './AdminList.module.css';
 import { Search, ChevronDown } from 'lucide-react';
+import useMediaQuery from '../../../hooks/useMediaQuery';
 
 const AdminList = () => {
+  const isMobile = useMediaQuery('(max-width: 768px)');
   // const [customers, setCustomers] = useState([]);
   // const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -75,7 +77,37 @@ const AdminList = () => {
         </div>
       </div>
 
-      <div className={styles.tableContainer}>
+      {isMobile 
+      ? (<div className={styles.tableContainer}>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th className={styles.th}>
+                Admin Id
+                <ChevronDown size={10} />
+              </th>
+              <th className={styles.th}>
+                Name
+                <ChevronDown size={10} />
+              </th>
+              <th className={styles.th}>
+                Email
+                <ChevronDown size={10} />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredCustomers.map((admin) => (
+              <tr key={admin.id} className={styles.row}>
+                <td className={styles.td}>{admin.id}</td>
+                <td className={styles.td}>{admin.name}</td>
+                <td className={styles.td}>{admin.email}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>)
+      : (<div className={styles.tableContainer}>
         <table className={styles.table}>
           <thead>
             <tr>
@@ -108,7 +140,8 @@ const AdminList = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      </div>)
+      }
     </div>
   );
 };

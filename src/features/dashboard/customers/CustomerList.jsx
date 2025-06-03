@@ -4,8 +4,10 @@ import clsx from 'clsx';
 import styles from './CustomerList.module.css';
 import { Search, ChevronDown } from 'lucide-react';
 import Button from '../../../components/button/Button';
+import useMediaQuery from '../../../hooks/useMediaQuery';
 
 const CustomerList = () => {
+  const isMobile = useMediaQuery('(max-width: 768px)');
   // const [customers, setCustomers] = useState([]);
   // const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -77,7 +79,37 @@ const CustomerList = () => {
         </div>
       </div>
 
-      <div className={styles.tableContainer}>
+      {isMobile
+      ? (<div className={styles.tableContainer}>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th className={styles.th}>
+                Customer Id
+                <ChevronDown size={10} />
+              </th>
+              <th className={styles.th}>
+                Name
+                <ChevronDown size={10} />
+              </th>
+              <th className={styles.th}>
+                Email
+                <ChevronDown size={10} />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredCustomers.map((customer) => (
+              <tr key={customer.id} className={styles.row}>
+                <td className={styles.td}>{customer.id}</td>
+                <td className={styles.td}>{customer.name}</td>
+                <td className={styles.td}>{customer.email}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>)
+      : (<div className={styles.tableContainer}>
         <table className={styles.table}>
           <thead>
             <tr>
@@ -110,7 +142,8 @@ const CustomerList = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      </div>)
+      }
     </div>
   );
 };
