@@ -4,59 +4,39 @@ import clsx from 'clsx';
 import styles from './AdminList.module.css';
 import { Search, ChevronDown } from 'lucide-react';
 import useMediaQuery from '../../../hooks/useMediaQuery';
+import { getAllUserProfiles } from '../../../services/api';
 
 const AdminList = () => {
   const isMobile = useMediaQuery('(max-width: 768px)');
-  // const [customers, setCustomers] = useState([]);
-  // const [loading, setLoading] = useState(true);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // useEffect(() => {
-  //   const fetchBookings = async () => {
-  //     try {
-  //       const response = await axios.get('/api/recent-bookings');
-  //       setBookings(response.data);
-  //     } catch (error) {
-  //       console.error('Error fetching bookings:', error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchBookings();
-  // }, []);
-
-  const admins = [
-    {
-      "id": "1",
-      "name": "John Doe",
-      "email": "john.doe@example.com",
-      "phone": "+1234567890",
-    },
-    {
-      "id": "2",
-      "name": "Jane Smith",
-      "email": "jane.smith@example.com",
-      "phone": "+1234567666",
-    },
-    {
-      "id": "3",
-      "name": "John Smith",
-      "email": "john.smith@example.com",
-      "phone": "+1234567333",
+  const fetchUsers = async () => {
+    try {
+      const res = await getAllUserProfiles();
+      setUsers(res.data);
+    } catch(error) {
+      console.error('Error fetching users:', error);
+    } finally {
+      setLoading(false);
     }
-  ]
+  }
 
-  const filteredCustomers = admins.filter(admin =>
-    admin.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    admin.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    admin.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    admin.phone.toLowerCase().includes(searchTerm.toLowerCase())
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const filteredCustomers = users.filter(user =>
+    user.userId.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.contactDetails.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.contactDetails.phoneNumber.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // if (loading) {
-  //   return <div className={styles.loading}>Loading...</div>;
-  // }
+  if (loading) {
+    return <div className={styles.loading}>Loading...</div>;
+  }
 
   return (
     <div className={styles.card}>
@@ -97,11 +77,11 @@ const AdminList = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredCustomers.map((admin) => (
-              <tr key={admin.id} className={styles.row}>
-                <td className={styles.td}>{admin.id}</td>
-                <td className={styles.td}>{admin.name}</td>
-                <td className={styles.td}>{admin.email}</td>
+            {filteredCustomers.map((user) => (
+              <tr key={user.userId} className={styles.row}>
+                <td className={styles.td}>...{user.userId.slice(-12)}</td>
+                <td className={styles.td}>{user.fullName}</td>
+                <td className={styles.td}>{user.contactDetails.email}</td>
               </tr>
             ))}
           </tbody>
@@ -130,12 +110,12 @@ const AdminList = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredCustomers.map((admin) => (
-              <tr key={admin.id} className={styles.row}>
-                <td className={styles.td}>{admin.id}</td>
-                <td className={styles.td}>{admin.name}</td>
-                <td className={styles.td}>{admin.email}</td>
-                <td className={styles.td}>{admin.phone}</td>
+            {filteredCustomers.map((user) => (
+              <tr key={user.id} className={styles.row}>
+                <td className={styles.td}>...{user.userId.slice(-12)}</td>
+                <td className={styles.td}>{user.fullName}</td>
+                <td className={styles.td}>{user.contactDetails.email}</td>
+                <td className={styles.td}>{user.contactDetails.phoneNumber}</td>
               </tr>
             ))}
           </tbody>

@@ -5,73 +5,39 @@ import styles from './RecentBookings.module.css';
 import { Search, ChevronDown } from 'lucide-react';
 import Button from '../../../../components/button/Button';
 import useMediaQuery from '../../../../hooks/useMediaQuery';
+import { getAllBookings } from '../../../../services/api';
 
 const RecentBookings = () => {
   const smallTable = useMediaQuery('(max-width: 900px)');
-  // const [bookings, setBookings] = useState([]);
+  const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [timeFilter, setTimeFilter] = useState('This Week');
 
-  // useEffect(() => {
-  //   const fetchBookings = async () => {
-  //     try {
-  //       const response = await axios.get('/api/recent-bookings');
-  //       setBookings(response.data);
-  //     } catch (error) {
-  //       console.error('Error fetching bookings:', error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchBookings();
-  // }, []);
-
-  const bookings = [
-    {
-      "bookingId": "B10011",
-      "date": "2029/02/15",
-      "time": "10:30 AM",
-      "name": "Jackson Moore",
-      "event": "Symphony Under the Stars",
-      "category": "Music",
-      "quantity": 2,
-      "amount": 100,
-      "status": "Confirmed"
-    },
-    {
-      "bookingId": "B10012",
-      "date": "2026/05/15",
-      "time": "14:30 AM",
-      "name": "P Diddy",
-      "event": "Baby Oil Freakoff",
-      "category": "N/A",
-      "quantity": 1,
-      "amount": 1000,
-      "status": "Pending"
-    },
-    {
-      "bookingId": "B10013",
-      "date": "2027/05/15",
-      "time": "20:00 AM",
-      "name": "Ozzy Osbourne",
-      "event": "Wacken Open Air",
-      "category": "Music",
-      "quantity": 1,
-      "amount": 1000,
-      "status": "Cancelled"
+  const fetchBookings = async () => {
+    try { 
+      const res = await getAllBookings();
+      setBookings(res.data);
+    } catch(error) {
+      console.error('Error fetching bookings:', error);
+    } finally {
+      setLoading(false);
     }
-  ]
+  }
+
+  useEffect(() => {
+    fetchBookings();
+  }, []);
+
 
   const filteredBookings = bookings.filter(booking =>
-    booking.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    booking.event.toLowerCase().includes(searchTerm.toLowerCase())
+    booking.customerId.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    booking.customerId.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // if (loading) {
-  //   return <div className={styles.loading}>Loading...</div>;
-  // }
+  if (loading) {
+    return <div className={styles.loading}>Loading...</div>;
+  }
 
   return (
     <div className={styles.card}>
@@ -118,22 +84,22 @@ const RecentBookings = () => {
           </thead>
           <tbody>
             {filteredBookings.map((booking) => (
-              <tr key={booking.bookingId} className={styles.row}>
-                <td className={styles.td}>{booking.bookingId}</td>
+              <tr key={booking.id} className={styles.row}>
+                <td className={styles.td}>{booking.id.slice(-12)}</td>
                 <td className={styles.td}>
                   <div className={styles.eventInfo}>
-                    <div>{booking.event}</div>
-                    <div className={styles.category}>{booking.category}</div>
+                    <div>eventTitle</div>
+                    <div className={styles.category}>category</div>
                   </div>
                 </td>
-                <td className={styles.td}>${booking.amount}</td>
+                <td className={styles.td}>$amount</td>
                 <td className={styles.td}>
                   <span className={clsx(styles.status, {
                     [styles.confirmed]: booking.status === 'Confirmed',
                     [styles.pending]: booking.status === 'Pending',
                     [styles.cancelled]: booking.status === 'Cancelled'
                   })}>
-                    {booking.status}
+                    {/* {booking.status} */'status'}
                   </span>
                 </td>
               </tr>
@@ -177,30 +143,30 @@ const RecentBookings = () => {
           </thead>
           <tbody>
             {filteredBookings.map((booking) => (
-              <tr key={booking.bookingId} className={styles.row}>
-                <td className={styles.td}>{booking.bookingId}</td>
+              <tr key={booking.id} className={styles.row}>
+                <td className={styles.td}>{booking.id.slice(-12)}</td>
                 <td className={styles.td}>
                   <div className={styles.dateTime}>
-                    <div>{booking.date}</div>
-                    <div className={styles.time}>{booking.time}</div>
+                    <div>{new Date(booking.bookingDate).toISOString().slice(0,10)}</div>
+                    <div className={styles.time}>{new Date(booking.bookingDate).toISOString().split('T')[1].slice(0, 5)}</div>
                   </div>
                 </td>
-                <td className={styles.td}>{booking.name}</td>
+                <td className={styles.td}>customerName</td>
                 <td className={styles.td}>
                   <div className={styles.eventInfo}>
-                    <div>{booking.event}</div>
-                    <div className={styles.category}>{booking.category}</div>
+                    <div>eventTitle</div>
+                    <div className={styles.category}>Category</div>
                   </div>
                 </td>
-                <td className={styles.td}>{booking.quantity}</td>
-                <td className={styles.td}>${booking.amount}</td>
+                <td className={styles.td}>{booking.ticketQuantity}</td>
+                <td className={styles.td}>$amount</td>
                 <td className={styles.td}>
                   <span className={clsx(styles.status, {
                     [styles.confirmed]: booking.status === 'Confirmed',
                     [styles.pending]: booking.status === 'Pending',
                     [styles.cancelled]: booking.status === 'Cancelled'
                   })}>
-                    {booking.status}
+                    {/* {booking.status} */'status'}
                   </span>
                 </td>
               </tr>

@@ -5,60 +5,41 @@ import styles from './CustomerList.module.css';
 import { Search, ChevronDown } from 'lucide-react';
 import Button from '../../../components/button/Button';
 import useMediaQuery from '../../../hooks/useMediaQuery';
+import { getAllCustomerProfiles } from '../../../services/api';
 
 const CustomerList = () => {
   const isMobile = useMediaQuery('(max-width: 768px)');
-  // const [customers, setCustomers] = useState([]);
-  // const [loading, setLoading] = useState(true);
+  const [customers, setCustomers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [timeFilter, setTimeFilter] = useState('This Week');
 
-  // useEffect(() => {
-  //   const fetchBookings = async () => {
-  //     try {
-  //       const response = await axios.get('/api/recent-bookings');
-  //       setBookings(response.data);
-  //     } catch (error) {
-  //       console.error('Error fetching bookings:', error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchBookings();
-  // }, []);
-
-  const customers = [
-    {
-      "id": "1",
-      "name": "John Doe",
-      "email": "john.doe@example.com",
-      "phone": "+1234567890",
-    },
-    {
-      "id": "2",
-      "name": "Jane Smith",
-      "email": "jane.smith@example.com",
-      "phone": "+1234567666",
-    },
-    {
-      "id": "3",
-      "name": "John Smith",
-      "email": "john.smith@example.com",
-      "phone": "+1234567333",
+  const fetchCustomers = async () => {
+    try {
+      const res = await getAllCustomerProfiles();
+      setCustomers(res.data);
+    } catch(error) {
+      console.error('Error fetching customers:', error);
+    } finally {
+      setLoading(false);
     }
-  ]
+  };
+
+  useEffect(() => {
+    fetchCustomers();
+  }, []);
+
 
   const filteredCustomers = customers.filter(customer =>
-    customer.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    customer.phone.toLowerCase().includes(searchTerm.toLowerCase())
+    customer.userId.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    customer.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    customer.contactDetails.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    customer.contactDetails.phoneNumber.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // if (loading) {
-  //   return <div className={styles.loading}>Loading...</div>;
-  // }
+  if (loading) {
+    return <div className={styles.loading}>Loading...</div>;
+  }
 
   return (
     <div className={styles.card}>
@@ -100,10 +81,10 @@ const CustomerList = () => {
           </thead>
           <tbody>
             {filteredCustomers.map((customer) => (
-              <tr key={customer.id} className={styles.row}>
-                <td className={styles.td}>{customer.id}</td>
-                <td className={styles.td}>{customer.name}</td>
-                <td className={styles.td}>{customer.email}</td>
+              <tr key={customer.userId} className={styles.row}>
+                <td className={styles.td}>...{customer.userId.slice(-12)}</td>
+                <td className={styles.td}>{customer.fullName}</td>
+                <td className={styles.td}>{customer.contactDetails.email}</td>
               </tr>
             ))}
           </tbody>
@@ -133,11 +114,11 @@ const CustomerList = () => {
           </thead>
           <tbody>
             {filteredCustomers.map((customer) => (
-              <tr key={customer.id} className={styles.row}>
-                <td className={styles.td}>{customer.id}</td>
-                <td className={styles.td}>{customer.name}</td>
-                <td className={styles.td}>{customer.email}</td>
-                <td className={styles.td}>{customer.phone}</td>
+              <tr key={customer.userId} className={styles.row}>
+                <td className={styles.td}>...{customer.userId.slice(-12)}</td>
+                <td className={styles.td}>{customer.fullName}</td>
+                <td className={styles.td}>{customer.contactDetails.email}</td>
+                <td className={styles.td}>{customer.contactDetails.phoneNumber}</td>
               </tr>
             ))}
           </tbody>

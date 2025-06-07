@@ -1,32 +1,30 @@
 import styles from './DashboardEvents.module.css'
 import EventCardGrid from "../../features/dashboard/events/EventCardGrid"
+import { useEffect, useState } from 'react';
+import { getAllEvents, getAllEventsWithTicketsSold } from '../../services/api';
 
 const DashboardEvents = () => {
-  const events = [
-    {
-      id: "1",
-      title: "Adventure Gear Show",
-      date: "June 5, 2029 - 3:00 PM",
-      location: "Rocky Ridge Exhibition Hall, Denver, CO",
-      percentageSold: "65",
-      price: "$40",
-      category: "Outdoor & Adventure",
-      status: "Active",
-      imageURI: "/images/ExampleImage.jpg"
-    },
-    {
-      id: "2",
-      title: "Adventure Gear Show",
-      date: "June 5, 2029 - 3:00 PM",
-      location: "Rocky Ridge Exhibition Hall, Denver, CO",
-      percentageSold: "65",
-      price: "$40",
-      category: "Outdoor & Adventure",
-      status: "Active",
-      imageURI: "/images/ExampleImage2.jpg"
-    }
-  ];
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  const fetchEvents = async () => {
+    try {
+      const res = await getAllEventsWithTicketsSold();
+      setEvents(res.data);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  if (loading) {
+    return <div className={styles.loading}>Loading...</div>;
+  }
 
   return (
     <div className={styles.eventGrid}>
