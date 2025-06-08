@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 2rem;
 }
 
 .logo {
@@ -33,6 +34,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: var(--gray-20);
+  border-radius: 30px;
+  padding: 3rem;
 
   label {
     margin-bottom: .25rem;
