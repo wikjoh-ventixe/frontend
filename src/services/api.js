@@ -1,5 +1,17 @@
 import axios from 'axios';
 
+// Auth service API
+const authApi = axios.create({
+  baseURL: 'https://wikjoh-ventixe-authservice-ehhcdvdeavamg2gz.swedencentral-01.azurewebsites.net/api',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+});
+
+export const registerCustomer = (data) => authApi.post('/CustomerAuth/register', data);
+export const loginCustomer = (data) => authApi.post('/CustomerAuth/login', data);
+
+
 // Event service API
 const eventApi = axios.create({
   baseURL: 'https://wikjoh-ventixe-eventservice-exfubhb0dne8cydm.swedencentral-01.azurewebsites.net/api',
