@@ -3,11 +3,15 @@ import styles from './LoginForm.module.css'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import Button from '../../components/button/Button'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate, useSearchParams } from 'react-router-dom'
+import { useAuth } from '../../contexts/AuthContext'
 
 const LoginForm = () => {
   const [submitted, setSubmitted] = useState(false)
   const { register, handleSubmit, formState: { errors }, reset } = useForm()
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const { login } = useAuth()
 
   const handleOk = () => {
     setSubmitted(false)
@@ -15,15 +19,27 @@ const LoginForm = () => {
   }
 
   const onSubmit = async (data) => {
-    const res = await axios.post('LoginApi', data, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+    try {
+      const res = await axios.post('LoginApi', data, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
 
-    if (res.status === 200) {
-      setSubmitted(true)
-      reset()
+      if (res.status === 200) {
+        login()
+        const returnTo = searchParams.get('returnTo')
+        if (returnTo) {
+          navigate(returnTo)
+        } else {
+          navigate('/home')
+        }
+        
+        setSubmitted(true)
+        reset()
+      }
+    } catch (error) {
+      console.error('Login failed:', error)
     }
   }
 

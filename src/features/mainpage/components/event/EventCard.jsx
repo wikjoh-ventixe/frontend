@@ -1,6 +1,8 @@
 import styles from './EventCard.module.css'
+import { useNavigate } from 'react-router-dom'
 
 const EventCardGrid = ({ event }) => {
+  const navigate = useNavigate();
   const percentageSold = (event.ticketsSold / event.maxBookings * 100);
 
   let priceFrom, currency;
@@ -12,9 +14,12 @@ const EventCardGrid = ({ event }) => {
     currency = lowestPackage.currency;
   }
 
+  const handleCardClick = () => {
+    navigate(`/event/${event.id}`);
+  };
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={handleCardClick}>
       <div className={styles.imageContainer}>
         <img className={styles.eventImage} src={event.image} />
         <div className={styles.category}>

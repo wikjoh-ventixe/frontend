@@ -3,6 +3,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import Home from './pages/Main/Home.jsx';
+import EventDetails from './pages/Main/EventDetails.jsx';
 import DashboardLayout from './layouts/DashboardLayout.jsx';
 import DashboardHome from './pages/Dashboard/DashboardHome.jsx';
 import CenterLayout from './layouts/CenterLayout.jsx';
@@ -14,6 +15,7 @@ import DashboardLogin from './features/dashboard/login/LoginForm'
 import DashboardCustomers from './pages/Dashboard/DashboardCustomers'
 import DashboardAdmins from './pages/Dashboard/DashboardAdmins'
 import MainpageLayout from './layouts/MainpageLayout.jsx'
+import { AuthProvider } from './contexts/AuthContext.jsx'
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: 'home',
         element: <Home />
+      },
+      {
+        path: 'event/:id',
+        element: <EventDetails />
       },
       {
         index: true,
@@ -93,6 +99,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 )

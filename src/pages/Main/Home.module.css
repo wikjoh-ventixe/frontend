@@ -8,6 +8,7 @@
 .main {
   flex: 1;
   padding: 2rem;
+  padding-bottom: 3rem;
   background-color: var(--main-background-color);
 }
 
