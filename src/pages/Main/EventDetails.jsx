@@ -8,7 +8,7 @@ import { Calendar, MapPin } from 'lucide-react';
 const EventDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user } = useAuth();
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedPackage, setSelectedPackage] = useState(null);
@@ -54,14 +54,24 @@ const EventDetails = () => {
     try {
       const bookingData = {
         eventId: id,
-        packageId: selectedPackage.id,
-        quantity: ticketQuantity,
-        totalAmount: selectedPackage.price * ticketQuantity
+        customerId: user?.id,
+        ticketQuantity: ticketQuantity,
+        packageId: selectedPackage.id
       };
       
       await createBooking(bookingData);
-      setShowConfirmation(false);
-      alert('Booking confirmed successfully!');
+      
+      // Navigate to confirmation page with booking details
+      navigate('/booking-confirmation', {
+        state: {
+          bookingDetails: {
+            event: event,
+            package: selectedPackage,
+            ticketQuantity: ticketQuantity,
+            customerId: user?.id
+          }
+        }
+      });
     } catch (error) {
       console.error('Error creating booking:', error);
       alert('Failed to create booking. Please try again.');

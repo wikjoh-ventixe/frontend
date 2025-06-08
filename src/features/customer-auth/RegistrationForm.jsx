@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import styles from './RegistrationForm.module.css'
-import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import Button from '../../components/button/Button'
 import { NavLink } from 'react-router-dom'
+import { registerCustomer } from '../../services/api'
 
 const RegistrationForm = () => {
   const [submitted, setSubmitted] = useState(false)
@@ -15,15 +15,16 @@ const RegistrationForm = () => {
   }
 
   const onSubmit = async (data) => {
-    const res = await axios.post('RegisterApi', data, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+    try {
+      const res = await registerCustomer(data)
 
-    if (res.status === 200) {
-      setSubmitted(true)
-      reset()
+      if (res.status === 200 || res.status === 201) {
+        setSubmitted(true)
+        reset()
+      }
+    } catch (error) {
+      console.error('Registration failed:', error)
+      // You could add error handling UI here
     }
   }
 

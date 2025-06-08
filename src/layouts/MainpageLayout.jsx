@@ -1,17 +1,17 @@
-import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import styles from './MainpageLayout.module.css'
 import Header from '../features/mainpage/components/header/Header';
 import Footer from '../features/footer/Footer';
+import { useAuth } from '../contexts/AuthContext';
 
 const MainpageLayout = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, logout } = useAuth();
 
   const handleAuthAction = () => {
     if (isLoggedIn) {
-      setIsLoggedIn(false); // logout
+      logout(); // Call logout from auth context
     } else {
-      // redirect to login or open login modal
+      // redirect to login
       window.location.href = '/auth/login';
     }
   };
@@ -24,4 +24,5 @@ const MainpageLayout = () => {
     </div>
   )
 }
+
 export default MainpageLayout

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 const EventCardGrid = ({ event }) => {
   const navigate = useNavigate();
-  const percentageSold = (event.ticketsSold / event.maxBookings * 100);
+  const percentageSold = Math.floor(event.ticketsSold / event.maxBookings * 100);
 
   let priceFrom, currency;
   if (event.packages && event.packages.length > 0) {

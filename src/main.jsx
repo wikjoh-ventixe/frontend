@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import Home from './pages/Main/Home.jsx';
 import EventDetails from './pages/Main/EventDetails.jsx';
+import BookingConfirmation from './pages/Main/BookingConfirmation.jsx';
 import DashboardLayout from './layouts/DashboardLayout.jsx';
 import DashboardHome from './pages/Dashboard/DashboardHome.jsx';
 import CenterLayout from './layouts/CenterLayout.jsx';
@@ -14,8 +15,11 @@ import DashboardEvents from './pages/Dashboard/DashboardEvents'
 import DashboardLogin from './features/dashboard/login/LoginForm'
 import DashboardCustomers from './pages/Dashboard/DashboardCustomers'
 import DashboardAdmins from './pages/Dashboard/DashboardAdmins'
+import DashboardCreateEvent from './pages/Dashboard/DashboardCreateEvent'
+import DashboardEventManagement from './pages/Dashboard/DashboardEventManagement'
 import MainpageLayout from './layouts/MainpageLayout.jsx'
 import { AuthProvider } from './contexts/AuthContext.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +35,10 @@ const router = createBrowserRouter([
         element: <EventDetails />
       },
       {
+        path: 'booking-confirmation',
+        element: <BookingConfirmation />
+      },
+      {
         index: true,
         element: <Navigate to="home" replace />
       }
@@ -38,7 +46,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <DashboardLayout />,
+    element: (
+      <ProtectedRoute>
+        <DashboardLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: 'home',
@@ -51,6 +63,14 @@ const router = createBrowserRouter([
       {
         path: 'events',
         element: <DashboardEvents />
+      },
+      {
+        path: 'events/create',
+        element: <DashboardCreateEvent />
+      },
+      {
+        path: 'events/:eventId',
+        element: <DashboardEventManagement />
       },
       {
         path: 'customers',

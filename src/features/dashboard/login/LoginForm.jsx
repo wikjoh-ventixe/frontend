@@ -1,28 +1,40 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styles from './LoginForm.module.css'
-import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import Button from '../../../components/button/Button'
+import { loginUser } from '../../../services/api'
 
 const LoginForm = () => {
-  const [submitted, setSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const navigate = useNavigate()
   const { register, handleSubmit, formState: { errors }, reset } = useForm()
 
-  const handleOk = () => {
-    setSubmitted(false)
-    reset()
-  }
-
   const onSubmit = async (data) => {
-    const res = await axios.post('DashboardLoginApi', data, {
-      headers: {
-        'Content-Type': 'application/json'
+    setIsLoading(true)
+    setError('')
+    
+    try {
+      const response = await loginUser(data)
+      
+      if (response.status === 200) {
+        // Store admin token
+        localStorage.setItem('admin_jwt_token', response.data.token)
+        
+        // Store additional user info if needed
+        localStorage.setItem('user_id', response.data.userId)
+        localStorage.setItem('user_type', response.data.userType)
+        
+        // Reset form and navigate to dashboard
+        reset()
+        navigate('/dashboard')
       }
-    })
-
-    if (res.status === 200) {
-      setSubmitted(true)
-      reset()
+    } catch (err) {
+      console.error('Login error:', err)
+      setError(err.response?.data?.message || 'Login failed. Please check your credentials.')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -40,22 +52,42 @@ const LoginForm = () => {
         </header>
 
         <div className={styles.formBody}>
+          {error && <div className={styles.error}>{error}</div>}
+          
           <div className={styles.formGroup}>
             <label htmlFor="email">Email address</label>
-            <input type="text" placeholder="Email address" {...register('email', { required: 'The email field is required' })} />
+            <input 
+              type="email" 
+              placeholder="Email address" 
+              {...register('email', { 
+                required: 'The email field is required',
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'Invalid email address'
+                }
+              })} 
+            />
             {errors.email?.message && <span className={styles.inputError}>{String(errors.email?.message)}</span>}
           </div>
 
           <div className={styles.formGroup}>
             <label htmlFor="password">Password</label>
-            <input type="text" placeholder="Password" {...register('password', { required: 'The password field is required' })} />
+            <input 
+              type="password" 
+              placeholder="Password" 
+              {...register('password', { required: 'The password field is required' })} 
+            />
             {errors.password?.message && <span className={styles.inputError}>{String(errors.password?.message)}</span>}
           </div>
 
         </div>
 
         <div className={styles.formButton}>
-          <Button label="Login" variant="primary" size="large" />
+          <Button 
+            label={isLoading ? "Logging in..." : "Login"} 
+            variant="primary" 
+            size="large"
+          />
         </div>
       </form>
   )

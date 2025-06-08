@@ -85,7 +85,7 @@ const RecentBookings = () => {
           <tbody>
             {filteredBookings.map((booking) => (
               <tr key={booking.id} className={styles.row}>
-                <td className={styles.td}>{booking.id.slice(-12)}</td>
+                <td className={styles.td}>...{booking.id.slice(-12)}</td>
                 <td className={styles.td}>
                   <div className={styles.eventInfo}>
                     <div>eventTitle</div>
@@ -144,7 +144,7 @@ const RecentBookings = () => {
           <tbody>
             {filteredBookings.map((booking) => (
               <tr key={booking.id} className={styles.row}>
-                <td className={styles.td}>{booking.id.slice(-12)}</td>
+                <td className={styles.td}>...{booking.id.slice(-12)}</td>
                 <td className={styles.td}>
                   <div className={styles.dateTime}>
                     <div>{new Date(booking.bookingDate).toISOString().slice(0,10)}</div>

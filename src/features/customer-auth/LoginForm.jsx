@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import styles from './LoginForm.module.css'
-import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import Button from '../../components/button/Button'
 import { NavLink, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
+import { loginCustomer } from '../../services/api'
 
 const LoginForm = () => {
   const [submitted, setSubmitted] = useState(false)
@@ -20,14 +20,11 @@ const LoginForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      const res = await axios.post('LoginApi', data, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+      const res = await loginCustomer(data)
 
       if (res.status === 200) {
-        login()
+        login(res.data)
+        
         const returnTo = searchParams.get('returnTo')
         if (returnTo) {
           navigate(returnTo)

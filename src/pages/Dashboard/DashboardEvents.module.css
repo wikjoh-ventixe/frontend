@@ -1,3 +1,25 @@
+.eventsContainer {
+  width: 100%;
+}
+
+.eventsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--headline-color);
+    margin: 0;
+  }
+
+  div {
+    cursor: pointer;
+  }
+}
+
 .eventGrid {
   width: 100%;
   display: grid;
