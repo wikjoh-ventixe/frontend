@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllEventsWithTicketsSold } from '../../services/api';
+import { getAllEvents } from '../../services/api';
 import styles from './Home.module.css';
 import EventCard from '../../features/mainpage/components/event/EventCard';
 
@@ -9,7 +9,7 @@ const Home = () => {
 
   const fetchEvents = async () => {
     try {
-      const res = await getAllEventsWithTicketsSold();
+      const res = await getAllEvents();
       setEvents(res.data);
     } catch (error) {
       console.error('Error fetching events:', error);
