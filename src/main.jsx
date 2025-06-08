@@ -1,7 +1,6 @@
 import './main.css'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import HomeLayout from './layouts/HomeLayout.jsx'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import Home from './pages/Main/Home.jsx';
 import DashboardLayout from './layouts/DashboardLayout.jsx';
@@ -12,22 +11,18 @@ import Register from './pages/CustomerAuth/Register.jsx';
 import DashboardBookings from './pages/Dashboard/DashboardBookings'
 import DashboardEvents from './pages/Dashboard/DashboardEvents'
 import DashboardLogin from './features/dashboard/login/LoginForm'
-import Events from './pages/Main/Events'
 import DashboardCustomers from './pages/Dashboard/DashboardCustomers'
 import DashboardAdmins from './pages/Dashboard/DashboardAdmins'
+import MainpageLayout from './layouts/MainpageLayout.jsx'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomeLayout />,
+    element: <MainpageLayout />,
     children: [
       {
         path: 'home',
         element: <Home />
-      },
-      {
-        path: 'events',
-        element: <Events />
       },
       {
         index: true,
